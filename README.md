@@ -1,4 +1,4 @@
-#Hi
+# Hi
 
 This is just a place i'm storing some code I'm working on for taking the setup of a fixed limit 
 Texas Hold'em poker game and determining what actions to take.
