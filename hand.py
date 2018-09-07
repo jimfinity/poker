@@ -106,79 +106,81 @@ class hand:
                        'cards':cards}
                }
     #check cards for duplicates
-    for i in sorted_cards:
+    loop = 0
+    for i in card_values:
       #remove the card (i) from the list so it doesn't match
-      sorted_cards.remove(i)
+      card_values.remove(i)
       #check for 1 match (pair)
-      if i in sorted_cards:
-        sorted_cards.remove(i)
+      if i in card_values:
+        card_values.remove(i)
         #check for 2 matches (three of a kind)
-        if i in sorted_cards:
-          sorted_cards.remove(i)
+        if i in card_values:
+          card_values.remove(i)
           #check for 3 matches (4 of a kind)
-          if i in sorted_cards:
+          if i in card_values:
             #return 'Four of a kind'
             return {'rank':'Four of a Kind',
-                    'details':{'value':i.getValueNum(),
-                               'quad':i.getValue(),
+                    'details':{'value':i,
+                               'quad':cards[loop].getValue(),
                                'cards':cards}
                    }
           #if 2 matches are made, check if the remaining 2 cards are a pair
-          elif (len(sorted_cards) == 2):
-            if (sorted_cards[0] == sorted_cards[1]):
+          elif (len(card_values) == 2):
+            if (card_values[0] == card_values[1]):
               #return 'Full House'
               return {'rank':'Full House',
                       'details':{'triple':cards[0].getValue(),
-                                 'pair':sorted_cards[0].getValue(),
+                                 'pair':cards[4].getValue(),
                                  'value':[cards[0].getValueNum(),cards[4].getValueNum()],
                                  'cards':cards}
                      }
           #return 'Three of a kind'
           return {'rank': 'Three of a Kind',
-                  'details': {'value':i.getValueNum(),
-                              'triple':i.getValue(),
+                  'details': {'value':i,
+                              'triple':cards[loop].getValue(),
                               'cards':cards}
                  }
         #if there is a pair but not 3 of that match check the other 3 cards
         #for a full house or two pairs
-        elif (len(sorted_cards) == 3):
-          if (sorted_cards[0] == sorted_cards[1] and sorted_cards[1] == sorted_cards[2]):
+        elif (len(card_values) == 3):
+          if (card_values[0] == card_values[1] and card_values[1] == card_values[2]):
             #return 'Full House'
             return {'rank':'Full House',
-                    'details':{'triple':sorted_cards[0].getValue(),
+                    'details':{'triple':cards[4].getValue(),
                                'pair':cards[0].getValue(),
-                               'value':[cards[0].getValueNum(),cards[4].getValueNum()],
+                               'value':[cards[4].getValueNum(),cards[0].getValueNum()],
                                'cards':cards}
                    }
-          elif (sorted_cards[0] == sorted_cards[1] or sorted_cards[1] == sorted_cards[2]):
+          elif (card_values[0] == card_values[1] or card_values[1] == card_values[2]):
             #return 'Two Pair'
             return {'rank':'Two Pair',
-                    'details':{'value':[card_values[1],card_values[3]],
+                    'details':{'value':[cards[1].getValueNum(),cards[3].getValueNum()],
                                'pairs':[cards[1].getValue(),cards[3].getValue()],
                                'cards':cards}
                    }
           else:
             break
 
-        elif (len(sorted_cards) == 2):
-          if (sorted_cards[0] == sorted_cards[1]):
+        elif (len(card_values) == 2):
+          if (card_values[0] == card_values[1]):
             #return 'Two Pair'
             return {'rank':'Two Pair',
-                    'details':{'value':[card_values[1],card_values[3]],
+                    'details':{'value':[cards[1].getValueNum(),cards[3].getValueNum()],
                                'pairs':[cards[1].getValue(),cards[3].getValue()],
                                'cards':cards}
                    }
         else:
           #return 'Pair of '+ i.getValue() +  's'
           return {'rank':'Pair',
-                  'details':{'pair':i.getValue(),
-                             'value':i.getValueNum(),
+                  'details':{'pair':cards[loop].getValue(),
+                             'value':i,
                              'cards':cards}
                  }
+      loop += 1
     #return 'trash'
     return {'rank':'High Card',
             'details':{'high_card':cards[4].getValue(),
-                     'value':card_values[4],
+                     'value':cards[4].getValueNum,
                      'cards':cards}
            }
 

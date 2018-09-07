@@ -34,18 +34,14 @@ class card:
       return False
 
   def __eq__(self, secondCard):
-#    if(
-#        (self.getValueNum() == secondCard.getValueNum())
-#          and
-#          (
-#            self.getSuit() == secondCard.getSuit()
-#              or
-#              (
-#                self.getSuit() == '*' or secondCard.getSuit == '*'
-#              )
-#          )
-#      ):
-    if((self.getValueNum() == secondCard.getValueNum())):
+    if(
+        (self.getValueNum() == secondCard.getValueNum())
+          and
+          (
+            self.getSuit() == secondCard.getSuit() or secondCard.getSuit() == '*'
+          )
+      ):
+#    if((self.getValueNum() == secondCard.getValueNum())):
       return True
     return False
 
@@ -78,7 +74,8 @@ class card:
                  'S':'Spades',
                  'C':'Clubs',
                  'D':'Diamonds',
-                 'H':'Hearts'
+                 'H':'Hearts',
+                 '*':'*'
                 }
     return suit_string[self.suit]
 
